@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 
-<html lang="pt-BR">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Aplicação Calculadora Spring</title>
 
 </head>
 
 <body>
-
-   <h1>Nossa Aplicação!!</h1>
+	<h1> Calculadora </h1>
+	<div>
+		<form action="#" th:action="@{/} method="post" id="operacaoForm">
+			<div>
+				<label for="modelOperacao">Selecione a operação: </label>
+				<select id="modelOperacao" name="modelOperacao">
+					<option th:each="operacao: $ {operacaoModel}"
+						    th:value="${operacao}"
+						    th:text="${operacao}"
+						    th:selected="${operacao == selectedModel}">
+						    Operação
+			</div>
+		</form>
+	</div>
 
 </body>
 
