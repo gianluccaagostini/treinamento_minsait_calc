@@ -15,7 +15,7 @@ public class WebController {
 	@GetMapping("/")
 	public String showForm(Model model) {
 		//adicionar uma lista de operações
-		model.addAttribute("modelOperacoes",List.of("Soma","Subtracao"));
+		model.addAttribute("modelOperacoes",List.of("Soma","Subtracao","Multiplicacao"));
 		return "form";
 	}
 	
@@ -36,11 +36,14 @@ public class WebController {
 			case "Subtracao":
 				resp = Integer.parseInt(valor01) - Integer.parseInt(valor02);				
 				break;
+			case "Multitplicacao":
+				resp = Integer.parseInt(valor01) * Integer.parseInt(valor02);				
+				break;
 		}
 		resposta = String.valueOf(resp);
 		
 		//devolver a resposta para a tela:
-		model.addAttribute("modelOperacoes",List.of("Soma","Subtracao"));
+		model.addAttribute("modelOperacoes",List.of("Soma","Subtracao","Multplicacao"));
 		model.addAttribute("response",resposta);
 		model.addAttribute("selectedModel",modelOperacoes);
 		return "form";		
