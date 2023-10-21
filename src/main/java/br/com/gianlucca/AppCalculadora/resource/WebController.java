@@ -12,32 +12,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class WebController {
 	
 	@GetMapping("/")
-	public String ShowForm(Model model) {
+	public String showForm(Model model) {
 		//adicionar uma lista de operações
-		model.addAttribute("modelOperacoes", List.of("Soma","Subtracao"));
+		model.addAttribute("modelOperacoes",List.of("Soma","Subtracao"));
 		return "form";
 	}
 	
 	@PostMapping("/")
-	public String handleFormSubmission(@RequestParam String modelOperacao, 
-									   @RequestParam String valor01,
+	public String handleFormSubmission(@RequestParam String modelOperacao,
+			                           @RequestParam String valor01,
 			                           @RequestParam String valor02,
-									   Model model) {
-		if(modelOperacao.isEmpty() || valor01.isEmpty() || valor02.isEmpty()) {
+			                           Model model) {
+		if(modelOperacao.isEmpty() || valor01.isEmpty() || valor02.isEmpty())
 			return null;
-			
-			String resposta = "";
-			switch (modelOperacao) {
-			case "Soma";
-				int resp = Integer.parseInt(valor01) + Integer.parseInt(valor02);
-				resposta = String.valueOf(resp);
+		
+		String resposta = "";
+		int resp = 0;
+		switch (modelOperacao) {
+			case "Soma":
+				resp = Integer.parseInt(valor01) + Integer.parseInt(valor02);				
 				break;
-			case "Subtracao";
-			int resp = Integer.parseInt(valor01) - Integer.parseInt(valor02);
-			resposta = String.valueOf(resp);
-			break;
-			}
+			case "Subtracao":
+				resp = Integer.parseInt(valor01) - Integer.parseInt(valor02);				
+				break;
 		}
-
+		resposta = String.valueOf(resp);
+		
+		//devolver a resposta para a tela:
+		model.addAttribute("modelOperacoes",List.of("Soma","Subtracao"));
+		model.addAttribute("response",resposta);
+		model.addAttribute("selectedModel",modelOperacao);
+		return "form";		
 	}
+	
 }
