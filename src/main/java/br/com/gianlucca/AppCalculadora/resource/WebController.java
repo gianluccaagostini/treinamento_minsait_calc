@@ -1,5 +1,6 @@
 package br.com.gianlucca.AppCalculadora.resource;
 
+
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -19,16 +20,16 @@ public class WebController {
 	}
 	
 	@PostMapping("/")
-	public String handleFormSubmission(@RequestParam String modelOperacao,
+	public String handleFormSubmission(@RequestParam String modelOperacoes,
 			                           @RequestParam String valor01,
 			                           @RequestParam String valor02,
 			                           Model model) {
-		if(modelOperacao.isEmpty() || valor01.isEmpty() || valor02.isEmpty())
+		if(modelOperacoes.isEmpty() || valor01.isEmpty() || valor02.isEmpty())
 			return null;
 		
 		String resposta = "";
 		int resp = 0;
-		switch (modelOperacao) {
+		switch (modelOperacoes) {
 			case "Soma":
 				resp = Integer.parseInt(valor01) + Integer.parseInt(valor02);				
 				break;
@@ -41,7 +42,7 @@ public class WebController {
 		//devolver a resposta para a tela:
 		model.addAttribute("modelOperacoes",List.of("Soma","Subtracao"));
 		model.addAttribute("response",resposta);
-		model.addAttribute("selectedModel",modelOperacao);
+		model.addAttribute("selectedModel",modelOperacoes);
 		return "form";		
 	}
 	
